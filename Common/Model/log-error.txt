@@ -1,0 +1,2 @@
+28/09/2020 01:24:11   Tests   9999   Este é um Log de testes
+28/09/2020 01:24:24   Tests   9999   Este é um Log de testes

@@ -1,0 +1,21 @@
+<div class="ui row">
+    <div
+        class="ui container"
+        ng-if="State.enabled">
+        <div ng-class="State.class">
+            <i ng-class="State.icon"></i>
+            <div class="ui content">
+                <header
+                    class="ui header"
+                    ng-bind="State.title">
+                    Ops! Algo de errado não está certo
+                </header>
+                <div
+                    class="ui text"
+                    ng-bind="State.content">
+                    Ocorreu algum erro. Tente executar a transação novamente
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
