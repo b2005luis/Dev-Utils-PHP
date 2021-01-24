@@ -1,18 +1,12 @@
 <div class="ui row">
-    <div
-        class="ui container"
-        ng-if="State.enabled">
-        <div ng-class="State.class">
-            <i ng-class="State.icon"></i>
+    <div class="ui container">
+        <div class="ui grey icon message">
+            <i id="App-Message-Icon" class="ui chat icon"></i>
             <div class="ui content">
-                <header
-                    class="ui header"
-                    ng-bind="State.title">
+                <header id="App-Message-Header" class="ui header">
                     Ops! Algo de errado não está certo
                 </header>
-                <div
-                    class="ui text"
-                    ng-bind="State.content">
+                <div id="App-Message-Content" class="ui description">
                     Ocorreu algum erro. Tente executar a transação novamente
                 </div>
             </div>
