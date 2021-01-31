@@ -79,7 +79,7 @@ class DatabaseMessage {
      */
     private function DuplicatedEntries(Message $Message): void {
         $Message->setClassName("ui red icon message");
-        $Message->setIcon("duplicate icon");
+        $Message->setIcon("ui clone icon");
         $Message->setTitle("Dados Duplicados");
         $Message->setContent("Atenção. O Sustema não permite ebtradas duplicadas. Verifique os dados e tente novamente");
     }
