@@ -146,9 +146,13 @@ class Message {
      * Initialize sn instance od Message
      */
     public function __construct() {
-        $this->setEnabled(true);
+        $this->setClassName("ui message");
+        $this->setIcon("chat icon");
+        $this->setTitle("Message");
+        $this->setContent("Nothing for display here.");
         $this->setLink("");
         $this->setTimer(0);
+        $this->setEnabled(true);
     }
 
     /**
