@@ -30,39 +30,60 @@ class Person {
     /**
      * @var string A text with the name to Person
      */
-    private $name;
+    private $firstname;
 
     /**
-     * @return string A text with the name to Person
+     * @return string A text with the firstname to Person
      */
-    public function getName() {
-        return $this->name;
+    public function getFirstname() {
+        return $this->firstname;
     }
 
     /**
-     * @param string $name A text with the name to Person
+     * @param string $firstname A text with the firstname to Person
      */
-    public function setName($name) {
-        $this->name = ucwords(trim($name));
+    public function setName($firstname) {
+        $this->firstname = ucwords(trim($firstname));
+        $this->setFullname();
     }
 
     /**
      * @var string A text with last name to Person
      */
-    private $lastName;
+    private $lastname;
 
     /**
      * @return string A text with last name to Person
      */
-    public function getLastName() {
-        return $this->lastName;
+    public function getLastname() {
+        return $this->lastname;
     }
 
     /**
-     * @param string $lastName A text with last name to Person
+     * @param string $lastname A text with last name to Person
      */
-    public function setLastName($lastName) {
-        $this->lastName = ucwords(trim($lastName));
+    public function setLastname($lastname) {
+        $this->lastname = ucwords(trim($lastname));
+        $this->setFullname();
+    }
+
+    /**
+     * @var string A text with the full name of Person
+     */
+    private $fullname;
+    
+    /**
+     * @return string A text with the full name of Person
+     */
+    public function getFullname(): string {
+        return $this->fullname;
+    }
+
+    /**
+     * @return void
+     */
+    public function setFullname(): void {
+        $this->fullname = join(" ", [$this->getFirstname(), $this->getLastname()]);
     }
 
     /**
@@ -98,8 +119,9 @@ class Person {
     public function GetInstanceArray(): array {
         return [
             "id" => $this->getId(),
-            "name" => $this->getName(),
-            "lastName" => $this->getLastName(),
+            "firstname" => $this->getFirstname(),
+            "lastname" => $this->getLastname(),
+            "fullname" => $this->getFullname(),
             "Birthday" => $this->Birthday->getTimestamp(),
             "Gender" => $this->Gender->GetInstanceArray()
         ];
