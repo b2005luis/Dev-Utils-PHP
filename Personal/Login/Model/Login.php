@@ -54,23 +54,23 @@ class Login {
     /**
      * @return bool A boolean value to kock state of User
      */
-    public function getLocked(): bool {
+    public function getBlocked(): bool {
         return $this->blocked;
     }
 
     /**
-     * @param bool $locked A boolean value to kock state of User
+     * @param bool $blocked A boolean value to kock state of User
      * @return void
      */
-    public function setLocked(bool $locked): void {
-        $this->blocked = $locked;
+    public function setBlocked(bool $blocked): void {
+        $this->blocked = $blocked;
     }
 
     /**
      * Initialize an instance of Login
      */
     public function __construct() {
-        $this->setLocked(false);
+        $this->setBlocked(false);
     }
 
     /**
@@ -81,7 +81,7 @@ class Login {
         return [
             "username" => $this->getUsername(),
             "password" => $this->getPassword(),
-            "locked" => $this->getLocked()
+            "blocked" => $this->getBlocked()
         ];
     }
 
