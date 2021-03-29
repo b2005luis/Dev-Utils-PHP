@@ -1,89 +1,86 @@
 <?php
 
 /**
- * Represents a User in the system
- * @requires Person
- * @requires Login
- * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
+ * Implements the abstraction of a User
+ * @uses Person
+ * @author Luis Alberto Batista Pedroso
  */
-class User extends Person {
-
+class User extends Person
+{
     /**
      * @var Login An instance of Login
      */
     public $Login;
 
     /**
-     * @var Contact List of contacts
+     * @var Contact An isntance of Contact
      */
     public $Contacts;
 
     /**
-     * @param Contact $Contact An instance of Contact
+     * @param Contact $Contact An isntance of Contact
+     * @return void
      */
-    public function PushContact(Contact $Contact) {
+    public function PushContact(Contact $Contact): void
+    {
         $this->Contacts = $Contact;
     }
 
     /**
-     * @var bool A boolean value with session state of User
+     * @var bool A boolean value for status of User like activated
      */
     private $activated;
 
     /**
-     * @return bool A boolean value with session state of User
+     * @return bool A boolean value for status of User like activated
      */
-    public function getActivated(): bool {
+    public function getActivated(): bool
+    {
         return $this->activated;
     }
 
     /**
-     * @param bool $activated A boolean value with session state of User
+     * @param bool $activated A boolean value for status of User like activated
      * @return void
      */
-    public function setActivated(bool $activated): void {
+    public function setActivated(bool $activated): void
+    {
         $this->activated = $activated;
     }
 
     /**
      * Initialize an instance of User
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->Login = new Login();
         $this->Contacts = [];
     }
 
     /**
-     * Generate and return a arrau with data of instance ofthe object
-     * @return array A array with data of instance ofthe object
+     * @return array An array with data of this instance of the User
      */
-    public function GetInstanceArray(): array {
-        // Recue yhe super class instance
+    public function GetInstanceArray(): array
+    {
         $Person = parent::GetInstanceArray();
-
-        // Generate array to contact list objects
         $ListOfContacts = [];
         foreach ($this->Contacts as $Contact) {
             $ListOfContacts[] = $Contact->GetInstanceArray();
         }
-
-        // Set the array with data
         $InstanceOf = [
             "Contacts" => $ListOfContacts,
-            "Login" => $this->Login->GetInstanceArray(),
-            "activated" => $this->getActivated()
+            "Login" => $this->Login->GetInstanceArray(), "activated" => $this->getActivated()
         ];
-
-        // junta arrays das classes e monta array para Usuário
         return array_merge($Person, $InstanceOf);
     }
 
     /**
-     * Recept and create an instance of User based in suplied array
-     * @param array $InstanceOf A array with data of User
+     * @param array $InstanceOf An array with data of this instance of the User
+     * @return void
      */
-    public function SetInstanceArray(array $InstanceOf) {
+    public function SetInstanceArray(array $InstanceOf): void
+    {
         $this->setId($InstanceOf["id"]);
         $this->setName($InstanceOf["firstName"]);
         $this->setLastName($InstanceOf["lastName"]);
@@ -94,7 +91,6 @@ class User extends Person {
         $this->Gender->setDescription($InstanceOf["Gender"]["description"]);
         $this->Login->setUsername($InstanceOf["Login"]["username"]);
         $this->Login->setPassword($InstanceOf["Login"]["password"]);
-        $this->Login->setLocked($InstanceOf["Login"]["locked"]);
+        $this->Login->setBlocked($InstanceOf["Login"]["locked"]);
     }
-
 }
