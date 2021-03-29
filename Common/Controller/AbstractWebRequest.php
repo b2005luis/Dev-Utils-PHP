@@ -5,8 +5,8 @@
  * @requires Status
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-abstract class AbstractWebRequest {
-
+abstract class AbstractWebRequest
+{
     /**
      * @var string A coded text with a token code to indentify a recepted request to feature
      */
@@ -20,8 +20,9 @@ abstract class AbstractWebRequest {
     /**
      * @return AbstractWebRequest An instance of AbstractWebRequest
      */
-    public function __construct() {
-        $this->Status = NEw Status();
+    public function __construct()
+    {
+        $this->Status = new Status();
         $this->Status->setContext("Factory");
     }
 
@@ -41,7 +42,8 @@ abstract class AbstractWebRequest {
      * Validate the Token and execute the suitable function
      * @return void
      */
-    public function ValidateRequest(): void {
+    public function ValidateRequest(): void
+    {
         if (isset($_GET["Token"])) {
             $this->Token = $_GET["Token"];
             $this->DoGet();
@@ -57,12 +59,13 @@ abstract class AbstractWebRequest {
      * Response with a message of the invalid request
      * @return void
      */
-    public function InvadRequest(): void {
+    public function InvadRequest(): void
+    {
         // Definir status
         $this->Status->setCode("NA");
         $this->Status->Message->DefaultMessage($this->Status);
         // Resposta da transação
-        $this->ResponseJSON($_REQUEST, $this->Status);
+        $this->ResponseJSON(this->Status->Message->getContent(), $this->Status);
     }
 
     /**
@@ -70,11 +73,11 @@ abstract class AbstractWebRequest {
      * @param Status $Status An instance od Status
      * @return void
      */
-    public function ResponseJSON($data, Status $Status): void {
+    public function ResponseJSON($data, Status $Status): void
+    {
         print json_encode([
             "Data" => $data,
             "Status" => $Status->GetInstanceArray()
         ]);
     }
-
 }
