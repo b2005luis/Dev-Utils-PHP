@@ -4,8 +4,8 @@
  * Implement an instance of Lead
  * @author Luis Alberto Batista Pedroso
  */
-class Lead {
-
+class Lead
+{
     /**
      * @var string A text with the mode as ARRAY to return one instance of class
      */
@@ -29,7 +29,8 @@ class Lead {
     /**
      * @return int A number with the identifier of Leed
      */
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->id;
     }
 
@@ -37,7 +38,8 @@ class Lead {
      * @param int $id A number with the identifier of Leed
      * @return void
      */
-    public function setId(int $id): void {
+    public function setId(int $id): void
+    {
         $this->id = $id;
     }
 
@@ -49,7 +51,8 @@ class Lead {
     /**
      * @return string A text with the name of Lead
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->name;
     }
 
@@ -57,7 +60,8 @@ class Lead {
      * @param string $name A text with the name of Lead
      * @return void
      */
-    public function setName(string $name): void {
+    public function setName(string $name): void
+    {
         $this->name = ucwords(strtolower($name));
     }
 
@@ -70,7 +74,8 @@ class Lead {
     /**
      * @return string A text with phone number of Lead
      */
-    public function getPhone(): string {
+    public function getPhone(): string
+    {
         return $this->phone;
     }
 
@@ -78,7 +83,8 @@ class Lead {
      * @param string $phone A text with phone number of Lead
      * @return void
      */
-    public function setPhone(string $phone): void {
+    public function setPhone(string $phone): void
+    {
         $this->phone = $phone;
     }
 
@@ -90,7 +96,8 @@ class Lead {
     /**
      * @return string A text with e-mail of Lead
      */
-    public function getEmail(): string {
+    public function getEmail(): string
+    {
         return $this->email;
     }
 
@@ -98,15 +105,16 @@ class Lead {
      * @param string $email A text with e-mail of Lead
      * @return void
      */
-    public function setEmail(string $email): void {
+    public function setEmail(string $email): void
+    {
         $this->email = strtolower($email);
     }
 
     /**
      * Initialize an instance of Lead
      */
-    public function __construct() {
-
+    public function __construct()
+    {
     }
 
     /**
@@ -114,8 +122,11 @@ class Lead {
      * @param string $name A text with the mode of return for an instance
      * @return mixed A array, json or text csv formatted as a instance of class
      */
-    public function GetInstanceArray(string $mode = Lead::ARRAY): mixed {
-        // Mounts the array with the data of instance
+    public function GetInstanceArray(string $mode = Lead::ARRAY): mixed
+    {
+        /**
+         * Mounts the array with the data of instance
+         */
         $InstanceOf = [
             "id" => $this->getId(),
             "name" => $this->getName(),
@@ -137,5 +148,4 @@ class Lead {
                 return $InstanceOf;
         }
     }
-
 }

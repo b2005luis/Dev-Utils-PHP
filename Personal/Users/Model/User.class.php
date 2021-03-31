@@ -34,7 +34,7 @@ class User extends Person
     /**
      * @return bool A boolean value for status of User like activated
      */
-    public function getActivated(): bool
+    public function isActivated(): bool
     {
         return $this->activated;
     }
@@ -70,7 +70,7 @@ class User extends Person
         }
         $InstanceOf = [
             "Contacts" => $ListOfContacts,
-            "Login" => $this->Login->GetInstanceArray(), "activated" => $this->getActivated()
+            "Login" => $this->Login->GetInstanceArray(), "activated" => $this->isActivated()
         ];
         return array_merge($Person, $InstanceOf);
     }
