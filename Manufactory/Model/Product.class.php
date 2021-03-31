@@ -2,12 +2,12 @@
 
 /**
  * Represents an instance of Product
- * @requires Category
- * @requires Packaging
+ * @uses Category
+ * @uses Packaging
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-class Product {
-
+class Product
+{
     /**
      * @var int A number with the identifier of Product
      */
@@ -16,7 +16,8 @@ class Product {
     /**
      * @return int A number with the identifier of Product
      */
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->id;
     }
 
@@ -24,7 +25,8 @@ class Product {
      * @param int $id A number with the identifier of Product
      * @return void
      */
-    public function setId(int $id): void {
+    public function setId(int $id): void
+    {
         $this->id = $id;
     }
 
@@ -36,7 +38,8 @@ class Product {
     /**
      * @return string A text with the base code of Product
      */
-    public function getBaseCode(): string {
+    public function getBaseCode(): string
+    {
         return $this->baseCode;
     }
 
@@ -44,7 +47,8 @@ class Product {
      * @param string $baseCode A text with the base code of Product
      * @return void
      */
-    public function setBaseCode(string $baseCode): void {
+    public function setBaseCode(string $baseCode): void
+    {
         $this->baseCode = strtoupper(trim($baseCode));
     }
 
@@ -56,7 +60,8 @@ class Product {
     /**
      * @return string A text with the Product code
      */
-    public function getCode(): string {
+    public function getCode(): string
+    {
         return $this->code;
     }
 
@@ -64,7 +69,8 @@ class Product {
      * @param string $code A text with the Product code
      * @return void
      */
-    public function setCode(string $code): void {
+    public function setCode(string $code): void
+    {
         $this->code = strtoupper(trim($code));
     }
 
@@ -76,7 +82,8 @@ class Product {
     /**
      * @return string A text with the description Product
      */
-    public function getDescription(): string {
+    public function getDescription(): string
+    {
         return $this->description;
     }
 
@@ -84,7 +91,8 @@ class Product {
      * @param string $description A text with the description Product
      * @return void
      */
-    public function setDescription(string $description): void {
+    public function setDescription(string $description): void
+    {
         $this->description = ucwords(trim($description));
     }
 
@@ -101,7 +109,8 @@ class Product {
     /**
      * @return Product An isntance of Product
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->Packaging = new Packaging();
         $this->Type = new Category();
     }
@@ -110,7 +119,8 @@ class Product {
      * Returns a array with the data of instance Product
      * @return array A array with the data of onstance Product
      */
-    public function GetInstanceArray(): array {
+    public function GetInstanceArray(): array
+    {
         return [
             "id" => $this->getId(),
             "baseCode" => $this->getBaseCode(),
@@ -120,5 +130,4 @@ class Product {
             "Type" => $this->Type->GetInstanceArray()
         ];
     }
-
 }
