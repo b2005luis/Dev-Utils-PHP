@@ -82,7 +82,7 @@ class User extends Person
     public function SetInstanceArray(array $InstanceOf): void
     {
         $this->setId($InstanceOf["id"]);
-        $this->setName($InstanceOf["firstName"]);
+        $this->setFirstname($InstanceOf["firstName"]);
         $this->setLastName($InstanceOf["lastName"]);
         $this->setBirthday($InstanceOf["birthday"]);
         $this->setActivated(true);
