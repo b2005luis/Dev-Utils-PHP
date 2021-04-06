@@ -7,7 +7,6 @@
  */
 class Contact
 {
-
     /**
      * @var int A number with identifier to contact
      */

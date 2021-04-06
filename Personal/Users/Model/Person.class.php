@@ -47,9 +47,9 @@ class Person
      * @param string $firstname A text with the firstname to Person
      * @return void
      */
-    public function setName(string $firstname): void
+    public function setFirstname(string $firstname): void
     {
-        $this->firstname = ucwords(trim($firstname));
+        $this->firstname = ucwords(strtolower(trim($firstname)));
         $this->setFullname();
     }
 
@@ -72,7 +72,7 @@ class Person
      */
     public function setLastname(string $lastname): void
     {
-        $this->lastname = ucwords(trim($lastname));
+        $this->lastname = ucwords(strtolower(trim($lastname)));
         $this->setFullname();
     }
 
