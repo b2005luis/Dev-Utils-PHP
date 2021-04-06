@@ -1,25 +1,32 @@
 <?php
 
 /**
+ * Import files
+ */
+require_once __DIR__ . "/Message.php";
+
+/**
  * Implements messages of Login in system
+ * @uses Message
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-class LoginMessage {
-
+class LoginMessage extends Message
+{
     /**
-     * Initialize an instance of Login Messages
-     * @return LoginMessage An instance of Login Messages
+     * Initialize an instance of LoginMessage
      */
-    public function __construct() {
-
+    public function __construct()
+    {
+        parent::__construct();
     }
 
     /**
      * Execute the features to LoginMessage context
      * @param Status $Status An instance of STatus
-     * @param Message $Message An instance of Message
+     * @return void
      */
-    public function ExecuteContext(Status $Status, Message $Message): void {
+    public function ExecuteContext(Status $Status): void
+    {
         /**
          * LOK = Succesfully login
          * FL = Fail Login
@@ -27,50 +34,49 @@ class LoginMessage {
          */
         switch ($Status->getCode()) {
             case "LOK":
-                $this->SuccesfullyLogin($Message);
+                $this->SuccesfullyLogin();
                 break;
 
             case "FL":
-                $this->FailLogin($Message);
+                $this->FailLogin();
                 break;
 
             case "LB":
-                $this->BlockedLogin($Message);
+                $this->BlockedLogin();
                 break;
         }
     }
 
     /**
-     * Generate the message to successfully login
-     * @param Message $Message An instance of Message
+     * @return void
      */
-    public function SuccesfullyLogin(Message $Message): void {
-        $Message->setClassName("ui green icon message");
-        $Message->setIcon("user icon");
-        $Message->setTitle("Pronto...!");
-        $Message->setContent("Você está conectado, aguarde... Estamos preparando tudo para você.");
+    public function SuccesfullyLogin(): void
+    {
+        $this->setClassName("ui green icon message");
+        $this->setIcon("user icon");
+        $this->setTitle("Pronto...!");
+        $this->setContent("Você está conectado, aguarde... Estamos preparando tudo para você.");
     }
 
     /**
-     * Generate the message to failed login
-     * @param Message $Message An instance of Message
+     * @return void
      */
-    public function FailLogin(Message $Message): void {
-        $Message->setClassName("ui red icon message");
-        $Message->setIcon("circle remove icon");
-        $Message->setTitle("Falha no Login");
-        $Message->setContent("Falha ao tentar autenticar o Usuário. Verifique seus dados e tente novamente.");
+    public function FailLogin(): void
+    {
+        $this->setClassName("ui red icon message");
+        $this->setIcon("circle remove icon");
+        $this->setTitle("Falha no Login");
+        $this->setContent("Falha ao tentar autenticar o Usuário. Verifique seus dados e tente novamente.");
     }
 
     /**
-     * Generate the message to blocked login
-     * @param Message $Message An instance of Message
+     * @return void
      */
-    public function BlockedLogin(Message $Message): void {
-        $Message->setClassName("ui red icon message");
-        $Message->setIcon("shield icon");
-        $Message->setTitle("Login Bloqueado");
-        $Message->setContent("Por razões de segurança seu login foi bloqueado. Você pode tentar realizar uma recuperação de senha.");
+    public function BlockedLogin(): void
+    {
+        $this->setClassName("ui red icon message");
+        $this->setIcon("shield icon");
+        $this->setTitle("Login Bloqueado");
+        $this->setContent("Por razões de segurança seu login foi bloqueado. Você pode tentar realizar uma recuperação de senha.");
     }
-
 }

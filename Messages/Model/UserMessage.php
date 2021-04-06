@@ -1,17 +1,31 @@
 <?php
 
 /**
+ * Import files
+ */
+require_once __DIR__ . "/Message.php";
+
+/**
  * Implements the messages for Users in the system
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-class UserMessage {
+class UserMessage extends Message
+{
+    /**
+     * Initialize an instance of UserMessage
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Execute the featured of DatabaseMessage context
      * @param Status $Status An instance of STatus
      * @param Message $Message An instance of Message
      */
-    public function ExecuteContext(Status $Status, Message $Message): void {
+    public function ExecuteContext(Status $Status): void
+    {
         /**
          * UOK = User creation successfully
          * UE = User already exists
@@ -19,50 +33,53 @@ class UserMessage {
          */
         switch ($Status->getCode()) {
             case "UOK":
-                $this->UserCreated($Message);
+                $this->UserCreated();
                 break;
 
             case "UE":
-                $this->ExistentUser($Message);
+                $this->ExistentUser();
                 break;
 
             case "UP":
-                $this->ParcialCreation($Message);
+                $this->ParcialCreation();
+                break;
+
+            default:
+                parent::ExecuteContext($Status);
                 break;
         }
     }
 
     /**
-     * Message of created user
-     * @param Message $Message An instance of Message
+     * @return void
      */
-    public function UserCreated(Message $Message): void {
-        $Message->setClassName("ui green icon message");
-        $Message->setIcon("user icon");
-        $Message->setTitle("Pronto... Cadastro Efetuado!");
-        $Message->setContent("Seu cadastro foi efetuado com sucesso");
+    public function UserCreated(): void
+    {
+        $this->setClassName("ui green icon message");
+        $this->setIcon("user icon");
+        $this->setTitle("Pronto... Cadastro Efetuado!");
+        $this->setContent("Seu cadastro foi efetuado com sucesso");
     }
 
     /**
-     * Message of existent User
-     * @param Message $Message An instance of Message
+     * @return void
      */
-    private function ExistentUser(Message $Message): void {
-        $Message->setClassName("ui yellow icon message");
-        $Message->setIcon("user icon");
-        $Message->setTitle("Usuário já cadastrado");
-        $Message->setContent("Você já é cadastrado na nossa base de clentes. Tente recuperar sua senha");
+    private function ExistentUser(): void
+    {
+        $this->setClassName("ui yellow icon message");
+        $this->setIcon("user icon");
+        $this->setTitle("Usuário já cadastrado");
+        $this->setContent("Você já é cadastrado na nossa base de clentes. Tente recuperar sua senha");
     }
 
     /**
-     *
-     * @param Message $Message An instance of Message
+     * @return void
      */
-    private function ParcialCreation($Message): void {
-        $Message->setClassName("ui orange icon message");
-        $Message->setIcon("user icon");
-        $Message->setTitle("Cadastro Parcial");
-        $Message->setContent("O Cadastro foi efetuado, mas nem todos os dados foram gravados. Você pode corrigir isso editando seu Perfil");
+    private function ParcialCreation(): void
+    {
+        $this->setClassName("ui orange icon message");
+        $this->setIcon("user icon");
+        $this->setTitle("Cadastro Parcial");
+        $this->setContent("O Cadastro foi efetuado, mas nem todos os dados foram gravados. Você pode corrigir isso editando seu Perfil");
     }
-
 }
