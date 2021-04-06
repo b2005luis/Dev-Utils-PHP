@@ -1,5 +1,9 @@
 # sudo a2enmod modrewrite
 
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
 Options +FollowSymLinks
 
 RewriteEngine On

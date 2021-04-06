@@ -2,10 +2,12 @@
 class Router
 {
     private $routes = [];
+
     public function method()
     {
         return isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : 'cli';
     }
+
     public function uri()
     {
         $self = isset($_SERVER['PHP_SELF']) ? str_replace('index.php/', '', $_SERVER['PHP_SELF']) : '';
@@ -19,10 +21,12 @@ class Router
         }
         return $uri;
     }
+
     function __call($name, $arguments)
     {
         return $this->on($name, isset($arguments[0]) ? $arguments[0] : '', isset($arguments[1]) ? $arguments[1] : '');
     }
+
     public function on($method, $path, $callback)
     {
         $method = strtolower($method);
@@ -35,10 +39,12 @@ class Router
         $this->routes[$method][$route] = $callback;
         return $this;
     }
+
     function __invoke($method, $uri)
     {
         return $this->run($method, $uri);
     }
+
     public function run($method, $uri)
     {
         $method = strtolower($method);
@@ -53,6 +59,7 @@ class Router
         }
         return null;
     }
+
     public function call($callback, $parameters)
     {
         if (is_callable($callback)) {
