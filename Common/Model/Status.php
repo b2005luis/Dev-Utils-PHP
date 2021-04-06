@@ -1,8 +1,13 @@
 <?php
 
 /**
+ * Import files
+ */
+require_once __DIR__ . "/../../Messages/Model/Message.php";
+
+/**
  * Represents one instance of State of one obeject
- * @requires Message
+ * @uses Message
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
 class Status {
@@ -45,8 +50,7 @@ class Status {
      */
     public function setCode(string $code): void {
         $this->code = $code;
-        // Mount a message based in the status code
-        $this->Message->DefineMessage($this);
+        $this->Message->ExecuteContext($this);
     }
 
     /**
@@ -61,18 +65,6 @@ class Status {
         $this->Message = new Message();
         $this->setContext("Factory");
         $this->setCode("NA");
-    }
-
-    /**
-     * Execute a response with state of invalid request
-     * @return void
-     */
-    public function InvalidRequest(): void {
-        // Define status
-        $this->setCode("NA");
-        $this->Message->DefaultMessage($this);
-        // Send response
-        $this->ResponseJSON($_REQUEST, $this);
     }
 
     /**
