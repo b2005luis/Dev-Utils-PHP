@@ -7,25 +7,17 @@ require_once __DIR__ . "/Message.php";
 
 /**
  * Implements messages of Login in system
- * @uses Message
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-class LoginMessage extends Message
+class LoginMessage
 {
-    /**
-     * Initialize an instance of LoginMessage
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Execute the features to LoginMessage context
      * @param Status $Status An instance of STatus
+     * @param Message $message An isntance of Message
      * @return void
      */
-    public function ExecuteContext(Status $Status): void
+    public function ExecuteContext(Status $Status, Message $message): void
     {
         /**
          * LOK = Succesfully login
@@ -48,35 +40,38 @@ class LoginMessage extends Message
     }
 
     /**
+     * @param Message $Message An isntance of Message
      * @return void
      */
-    public function SuccesfullyLogin(): void
+    public function SuccesfullyLogin(Message $Message): void
     {
-        $this->setClassName("ui green icon message");
-        $this->setIcon("user icon");
-        $this->setTitle("Pronto...!");
-        $this->setContent("Você está conectado, aguarde... Estamos preparando tudo para você.");
+        $Message->setClassName("ui green icon message");
+        $Message->setIcon("user icon");
+        $Message->setTitle("Pronto...!");
+        $Message->setContent("Você está conectado, aguarde... Estamos preparando tudo para você.");
     }
 
     /**
+     * @param Message $Message An isntance of Message
      * @return void
      */
-    public function FailLogin(): void
+    public function FailLogin(Message $Message): void
     {
-        $this->setClassName("ui red icon message");
-        $this->setIcon("circle remove icon");
-        $this->setTitle("Falha no Login");
-        $this->setContent("Falha ao tentar autenticar o Usuário. Verifique seus dados e tente novamente.");
+        $Message->setClassName("ui red icon message");
+        $Message->setIcon("circle remove icon");
+        $Message->setTitle("Falha no Login");
+        $Message->setContent("Falha ao tentar autenticar o Usuário. Verifique seus dados e tente novamente.");
     }
 
     /**
+     * @param Message $Message An isntance of Message
      * @return void
      */
-    public function BlockedLogin(): void
+    public function BlockedLogin(Message $Message): void
     {
-        $this->setClassName("ui red icon message");
-        $this->setIcon("shield icon");
-        $this->setTitle("Login Bloqueado");
-        $this->setContent("Por razões de segurança seu login foi bloqueado. Você pode tentar realizar uma recuperação de senha.");
+        $Message->setClassName("ui red icon message");
+        $Message->setIcon("shield icon");
+        $Message->setTitle("Login Bloqueado");
+        $Message->setContent("Por razões de segurança seu login foi bloqueado. Você pode tentar realizar uma recuperação de senha.");
     }
 }

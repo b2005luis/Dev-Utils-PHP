@@ -1,31 +1,18 @@
 <?php
 
 /**
- * Import files
- */
-require_once __DIR__ . "/Message.php";
-
-/**
  * Implements the manager of messages from Database
- * @uses Message
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-class DatabaseMessage extends Message
+class DatabaseMessage
 {
-    /**
-     * Initialize one instance of DatabaseMessage
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
+   /**
      * Execute the featured of DatabaseMessage context
      * @param Status $Status An instance of Status
+     * @param Message $Message An instance of Message
      * @return void
      */
-    public function ExecuteContext(Status $Status): void
+    public function ExecuteContext(Status $Status, Message $Message): void
     {
         /**
          * 1045 = Access danied to user or database
@@ -36,80 +23,85 @@ class DatabaseMessage extends Message
          */
         switch ($Status->getCode()) {
             case "1045":
-                $this->AccessDanied();
+                $this->AccessDanied($Message);
                 break;
 
             case "23000":
-                $this->DuplicatedEntries();
+                $this->DuplicatedEntries($Message);
                 break;
 
             case "42000":
-                $this->IncorrectSintax();
+                $this->IncorrectSintax($Message);
                 break;
 
             case "42S22":
-                $this->ColumnNotFound();
+                $this->ColumnNotFound($Message);
                 break;
 
             case "HY093":
-                $this->ParametersNumber();
+                $this->ParametersNumber($Message);
                 break;
         }
     }
 
     /**
+     * @param Message $Message An instance of Message
      * @return void
      */
-    private function AccessDanied(): void
+    private function AccessDanied(Message $Message): void
     {
-        $this->setClassName("ui red icon message");
-        $this->setIcon("shield icon");
-        $this->setTitle("Acesso Negado");
-        $this->setContent("O acesso a alguns recursos importantes foi negado. Contate o administrador do sistema");
-        $this->setEnabled(true);
+        $Message->setClassName("ui red icon message");
+        $Message->setIcon("shield icon");
+        $Message->setTitle("Acesso Negado");
+        $Message->setContent("O acesso a alguns recursos importantes foi negado. Contate o administrador do sistema");
+        $Message->setEnabled(true);
     }
 
     /**
+     * @param Message $Message An instance of Message
      * @return void
      */
-    private function ColumnNotFound(): void
+    private function ColumnNotFound(Message $Message): void
     {
-        $this->setClassName("ui red icon message");
-        $this->setIcon("table icon");
-        $this->setTitle("Coluna Inexistente");
-        $this->setContent("Algumas das colunas que estão sendo usadas na transação não estão disponíveis");
+        $Message->setClassName("ui red icon message");
+        $Message->setIcon("table icon");
+        $Message->setTitle("Coluna Inexistente");
+        $Message->setContent("Algumas das colunas que estão sendo usadas na transação não estão disponíveis");
     }
 
     /**
+     * @param Message $Message An instance of Message
      * @return void
      */
-    private function DuplicatedEntries(): void
+    private function DuplicatedEntries(Message $Message): void
     {
-        $this->setClassName("ui red icon message");
-        $this->setIcon("ui clone icon");
-        $this->setTitle("Dados Duplicados");
-        $this->setContent("Atenção. O Sustema não permite ebtradas duplicadas. Verifique os dados e tente novamente");
+        $Message->setClassName("ui red icon message");
+        $Message->setIcon("ui clone icon");
+        $Message->setTitle("Dados Duplicados");
+        $Message->setContent("Atenção. O Sustema não permite ebtradas duplicadas. Verifique os dados e tente novamente");
     }
 
     /**
+     * @param Message $Message An instance of Message
      * @return void
      */
-    private function IncorrectSintax(): void
+    private function IncorrectSintax(Message $Message): void
     {
-        $this->setClassName("ui grey icon message");
-        $this->setIcon("code icon");
-        $this->setTitle("Sintaxe Incorreta");
-        $this->setContent("Existe algum problema no sistema. Isto pode ser por causa de uma manutenção. Tente novamente mais tarde");
+        $Message->setClassName("ui grey icon message");
+        $Message->setIcon("code icon");
+        $Message->setTitle("Sintaxe Incorreta");
+        $Message->setContent("Existe algum problema no sistema. Isto pode ser por causa de uma manutenção. Tente novamente mais tarde");
     }
 
     /**
+     * @param Message $Message An instance of Message
      * @return void
      */
-    private function ParametersNumber(): void
+    private function ParametersNumber(Message $Message): void
     {
-        $this->setClassName("ui red icon message");
-        $this->setIcon("code icon");
-        $this->setTitle("Parametros Incorretos");
-        $this->setContent("O numero de parâmetros fornecidos na transação não é suficuente ou não está correto");
+        $Message->setClassName("ui red icon message");
+        $Message->setIcon("code icon");
+        $Message->setTitle("Parametros Incorretos");
+        $Message->setContent("O numero de parâmetros fornecidos na transação não é suficuente ou não está correto");
     }
 }
