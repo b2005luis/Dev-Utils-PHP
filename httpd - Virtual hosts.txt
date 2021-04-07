@@ -1,0 +1,18 @@
+# Virtual hosts
+Include conf/extra/httpd-vhosts.conf
+
+<VirtualHost *:80>
+	DocumentRoot C:/xampp/htdocs
+	ServerName /
+	<Directory "C:/xampp/htdocs">
+		Require all granted
+	</Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+	DocumentRoot C:/xampp/htdocs/App-Test
+	ServerName App-Test.app.me
+	<Directory "C:/xampp/htdocs/App-Test">
+		Require all granted
+	</Directory>
+</VirtualHost>
