@@ -10,26 +10,28 @@ require_once __DIR__ . "/../../Messages/Model/Message.php";
  * @uses Message
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-class Status {
+class Status
+{
+    /**
+     * @var string A text with name for scope of the Status
+     */
+    private $scope;
 
     /**
-     * @var string A text with name to Context of object and your state
+     * @return A text with name for scope of the Status
      */
-    protected $context;
-
-    /**
-     * @return string A text with name to Context of object and your state
-     */
-    public function getContext(): string {
-        return $this->context;
+    public function getScope(): string
+    {
+        return $this->scope;
     }
 
     /**
-     * @param string $context A text with name to Context of object and your state
+     * @param string $scope A text with name for scope of the Status
      * @return void
      */
-    public function setContext(string $context): void {
-        $this->context = $context;
+    public function setScope(string $scope): void
+    {
+        $this->scope = $scope;
     }
 
     /**
@@ -40,7 +42,8 @@ class Status {
     /**
      * @return string A text with the code of state object
      */
-    public function getCode(): string {
+    public function getCode(): string
+    {
         return $this->code;
     }
 
@@ -48,9 +51,10 @@ class Status {
      * @param string $code A text with the code of state object
      * @return void
      */
-    public function setCode(string $code): void {
+    public function setCode(string $code): void
+    {
         $this->code = $code;
-        $this->Message->ExecuteContext($this);
+        $this->Message->DefineMessage($this);
     }
 
     /**
@@ -61,9 +65,10 @@ class Status {
     /**
      * @return Status An instance of Status
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->Message = new Message();
-        $this->setContext("Factory");
+        $this->Message->setContext("Factory");
         $this->setCode("NA");
     }
 
@@ -71,7 +76,8 @@ class Status {
      * Generate a log file in the pre-defined location
      * @return void
      */
-    public function GenerateLogFile(): void {
+    public function GenerateLogFile(): void
+    {
         date_default_timezone_set("America/Sao_Paulo");
         $Date = new DateTime();
 
@@ -79,11 +85,11 @@ class Status {
         $Message_Type = 3;
 
         $Message = join("   ", [
-                    $Date->format("d/m/Y H:i:s"),
-                    $this->getContext(),
-                    $this->getCode(),
-                    $this->Message->getContent()
-                ]) . PHP_EOL;
+            $Date->format("d/m/Y H:i:s"),
+            $this->getScope(),
+            $this->getCode(),
+            $this->Message->getContent()
+        ]) . PHP_EOL;
 
         error_log($Message, $Message_Type, $Destination);
     }
@@ -92,12 +98,12 @@ class Status {
      * Return a array with data of instance Status
      * @return array A array with data of instance Status
      */
-    public function GetInstanceArray() {
+    public function GetInstanceArray()
+    {
         return [
-            "context" => $this->getContext(),
+            "scope" => $this->getScope(),
             "code" => $this->getCode(),
             "Message" => $this->Message->GetInstanceArray()
         ];
     }
-
 }

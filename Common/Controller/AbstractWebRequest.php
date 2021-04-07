@@ -1,8 +1,13 @@
 <?php
 
 /**
+ * Import files
+ */
+require_once __DIR__ . "/../Model/Status.php";
+
+/**
  * Implements an abstraction for treatment of web requests
- * @requires Status
+ * @uses Status
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
 abstract class AbstractWebRequest
@@ -23,7 +28,7 @@ abstract class AbstractWebRequest
     public function __construct()
     {
         $this->Status = new Status();
-        $this->Status->setContext("Factory");
+        $this->Status->Message->setContext("Factory");
     }
 
     /**
@@ -61,11 +66,9 @@ abstract class AbstractWebRequest
      */
     public function InvadRequest(): void
     {
-        // Definir status
         $this->Status->setCode("NA");
         $this->Status->Message->DefaultMessage($this->Status);
-        // Resposta da transação
-        $this->ResponseJSON(this->Status->Message->getContent(), $this->Status);
+        $this->ResponseJSON($this->Status->Message->getContent(), $this->Status);
     }
 
     /**

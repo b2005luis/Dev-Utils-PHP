@@ -1,11 +1,43 @@
 <?php
 
+/** 
+ * Import files
+ */
+require_once __DIR__ . "/DatabaseMessage.php";
+require_once __DIR__ . "/LoginMessage.php";
+require_once __DIR__ . "/UserMessage.php";
+
 /**
- * Responsible by manage messages of the ssystem
+ * Responsible by manage messages of the system
+ * @uses DatabaseMessage
+ * @uses LoginMessage
+ * @uses UserMessage
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
 class Message
 {
+    /**
+     * @var string A text with name to Context of object and your state
+     */
+    protected $context;
+
+    /**
+     * @return string A text with name to Context of object and your state
+     */
+    public function getContext(): string
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param string $context A text with name to Context of object and your state
+     * @return void
+     */
+    public function setContext(string $context): void
+    {
+        $this->context = $context;
+    }
+
     /**
      * @var string A text with class name of CSS style to message
      */
@@ -168,10 +200,42 @@ class Message
     }
 
     /**
+     * Generate a message based in a message context
+     * @param Status $Status Am instance of Status
+     */
+    public function DefineMessage(Status $Status): void
+    {
+        switch ($this->getContext()) {
+            case "Factory":
+                $this->ExecuteContext($Status);
+                break;
+
+            case "Database":
+                $DatabaseMSG = new DatabaseMessage();
+                $DatabaseMSG->ExecuteContext($Status, $this);
+                break;
+
+            case "Users":
+                $LoginMSG = new UserMessage();
+                $LoginMSG->ExecuteContext($Status, $this);
+                break;
+
+            case "Login":
+                $LoginMSG = new LoginMessage();
+                $LoginMSG->ExecuteContext($Status, $this);
+                break;
+
+            default:
+                $this->DefaultMessage($Status);
+                break;
+        }
+    }
+
+    /**
      * Execute an message in current contexto
      * @param Status $Status An instance of Status
      */
-    public function ExecuteContext(Status $Status): void
+    private function ExecuteContext(Status $Status): void
     {
         /**
          * Description of states of messages
@@ -326,6 +390,7 @@ class Message
     public function GetInstanceArray(): array
     {
         return [
+            "context" => $this->getContent(),
             "class" => $this->getClassName(),
             "icon" => $this->getIcon(),
             "title" => $this->getTitle(),
