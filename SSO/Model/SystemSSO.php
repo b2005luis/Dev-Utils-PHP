@@ -5,8 +5,8 @@
  * @uses Status
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-class SystemSSO {
-
+class SystemSSO
+{
     /**
      * @var string A text or number to represent key of session
      */
@@ -15,7 +15,8 @@ class SystemSSO {
     /**
      * @return string A text or number to represent key of session
      */
-    public function getKey(): string {
+    public function getKey(): string
+    {
         return $this->key;
     }
 
@@ -23,7 +24,8 @@ class SystemSSO {
      * @param string $key A text or number to represents key session
      * @return void
      */
-    public function setKey(string $key): void {
+    public function setKey(string $key): void
+    {
         $this->key = $key;
     }
 
@@ -35,7 +37,8 @@ class SystemSSO {
     /**
      * Initializa an instance of SystemSSO
      */
-    public function __construct(string $key = "System") {
+    public function __construct(string $key = "System")
+    {
         $this->setKey($key);
         $this->Status = new Status();
         if (!isset($_SESSION)) {
@@ -47,7 +50,8 @@ class SystemSSO {
      * Check if the key session exists
      * @return boolean A boolean value to response if a sesssion is valid or not
      */
-    public function CheckSession(): bool {
+    public function CheckSession(): bool
+    {
         if (isset($_SESSION[SESSION_NAME][$this->getKey()])) {
             $this->Status->setCode("SOK");
             return TRUE;
@@ -62,7 +66,8 @@ class SystemSSO {
      * @param mixed $valueOf A value of session. Can any value or object or arrau
      * @return void
      */
-    public function CreateSession($valueOf): void {
+    public function CreateSession($valueOf): void
+    {
         $_SESSION[SESSION_NAME][$this->getKey()] = $valueOf;
         $this->CheckSession();
     }
@@ -72,7 +77,8 @@ class SystemSSO {
      * @return mixed A value of session based in session name and key
      * @return mixed Any value of session based in yhe session ma,e and our key value
      */
-    public function RecoverySession() {
+    public function RecoverySession()
+    {
         $this->CheckSession();
 
         if ($this->Status->getCode() == "SOK") {
@@ -88,7 +94,8 @@ class SystemSSO {
      * unsign a current defined sesssion
      * @return void
      */
-    public function DiscardSession(): void {
+    public function DiscardSession(): void
+    {
         $this->CheckSession();
 
         if ($this->Status->getCode() == "SOK") {
@@ -96,5 +103,4 @@ class SystemSSO {
             $this->Status->setCode("SND");
         }
     }
-
 }
