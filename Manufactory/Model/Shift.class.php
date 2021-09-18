@@ -3,7 +3,7 @@
 /**
  * Represents an instance of Shift
  * @uses DateTime
- * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
+ * @author Luis Alberto Batista Pedroso
  */
 class Shift
 {
@@ -11,6 +11,46 @@ class Shift
      * @var int A number with the identifier of the Shift
      */
     private $id;
+
+    /**
+     * @var string A text with the code of Shift
+     */
+    private $code;
+
+    /**
+     * @var string A text with the description of the Shift
+     */
+    private $description;
+
+    /**
+     * @var int A number with the cursor to advances or foreards date of start shift
+     */
+    private $cursorStartDay;
+
+    /**
+     * @var DateTime An instance of DateTime
+     */
+    private $StartDate;
+
+    /**
+     * @var int A number with the cursor to advances or foreards date of end shift
+     */
+    private $cursorEndDay;
+
+    /**
+     * @var DateTime An instance of DateTime
+     */
+    private $EndDate;
+
+    /**
+     * @var int A bit number to represents a boolean value of cut Shift
+     */
+    private $ofCut;
+
+    /**
+     * @var int A bit number to represents a boolean value of Shift in searches
+     */
+    private $ofSearch;
 
     /**
      * @return int A number with the identifier of the Shift
@@ -30,11 +70,6 @@ class Shift
     }
 
     /**
-     * @var string A text with the code of Shift
-     */
-    private $code;
-
-    /**
      * @return string A text with the code of Shift
      */
     public function getCode(): string
@@ -50,11 +85,6 @@ class Shift
     {
         $this->code = strtoupper(trim($code));
     }
-
-    /**
-     * @var string A text with the description of the Shift
-     */
-    private $description;
 
     /**
      * @return string A text with the description of the Shift
@@ -74,11 +104,6 @@ class Shift
     }
 
     /**
-     * @var int A number with the cursor to advances or foreards date of start shift
-     */
-    private $cursorStartDay;
-
-    /**
      * @return int A number with the cursor to advances or foreards date of start shift
      */
     public function getCursorStartDay(): int
@@ -96,11 +121,6 @@ class Shift
     }
 
     /**
-     * @var DateTime An instance of DateTime
-     */
-    private $StartDate;
-
-    /**
      * @param string $StartDate A text with the formatted date to StartDate
      * @return void
      */
@@ -109,11 +129,6 @@ class Shift
         $StartDate = str_replace("/", "-", $StartDate);
         $this->StartDate->setTimestamp(strtotime($StartDate));
     }
-
-    /**
-     * @var int A number with the cursor to advances or foreards date of end shift
-     */
-    private $cursorEndDay;
 
     /**
      * @return int A number with the cursor to advances or foreards date of end shift
@@ -133,11 +148,6 @@ class Shift
     }
 
     /**
-     * @var DateTime An instance of DateTime
-     */
-    private $EndDate;
-
-    /**
      * @param string $EndDate An instance of DateTime
      * @return void
      */
@@ -146,11 +156,6 @@ class Shift
         $EndDate = str_replace("/", "-", $EndDate);
         $this->EndDate->setTimestamp(strtotime($EndDate));
     }
-
-    /**
-     * @var int A bit number to represents a boolean value of cut Shift
-     */
-    private $ofCut;
 
     /**
      * @return int A bit number to represents a boolean value of cut Shift
@@ -168,11 +173,6 @@ class Shift
     {
         $this->ofCut = $ofCut;
     }
-
-    /**
-     * @var int A bit number to represents a boolean value of Shift in searches
-     */
-    private $ofSearch;
 
     /**
      * @return int A bit number to represents a boolean value of Shift in searches

@@ -13,6 +13,21 @@ class Contact
     protected $id;
 
     /**
+     * @var Category An instance of Category
+     */
+    public $ContactType;
+
+    /**
+     * @var string A text with contact suplied
+     */
+    protected $contact;
+
+    /**
+     * @var string An explanation of contact representation
+     */
+    protected $description;
+
+    /**
      * @return int A number with identifier to contact
      */
     public function getId(): int
@@ -30,16 +45,6 @@ class Contact
     }
 
     /**
-     * @var Category An instance of Category
-     */
-    public $ContactType;
-
-    /**
-     * @var string A text with contact suplied
-     */
-    protected $contact;
-
-    /**
      * @return string A text with contact suplied
      */
     public function getContact(): string
@@ -55,11 +60,6 @@ class Contact
     {
         $this->contact = $contact;
     }
-
-    /**
-     * @var string An explanation of contact representation
-     */
-    protected $description;
 
     /**
      * @return string An explanation of contact representation

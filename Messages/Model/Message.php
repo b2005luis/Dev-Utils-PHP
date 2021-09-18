@@ -1,6 +1,6 @@
 <?php
 
-/** 
+/**
  * Import files
  */
 require_once __DIR__ . "/DatabaseMessage.php";
@@ -22,6 +22,55 @@ class Message
     protected $context;
 
     /**
+     * @var string A text with class name of CSS style to message
+     */
+    protected $className;
+
+    /**
+     * @var string A text with class name of CSS style to icon
+     */
+    protected $icon;
+
+    /**
+     * @var string A text with title of message
+     */
+    protected $title;
+
+    /**
+     * @var string A text with Content of message
+     */
+    protected $content;
+
+    /**
+     * @var int A number with Timer to redirect message
+     */
+    protected $timer;
+
+    /**
+     * @var bool A boolean value with state of message
+     */
+    protected $enabled;
+
+    /**
+     * @var string An URL with path to redirect
+     */
+    protected $link;
+
+    /**
+     * Initialize sn instance od Message
+     */
+    public function __construct()
+    {
+        $this->setClassName("ui message");
+        $this->setIcon("chat icon");
+        $this->setTitle("Message");
+        $this->setContent("Nothing for display here.");
+        $this->setLink("");
+        $this->setTimer(0);
+        $this->setEnabled(true);
+    }
+
+    /**
      * @return string A text with name to Context of object and your state
      */
     public function getContext(): string
@@ -37,11 +86,6 @@ class Message
     {
         $this->context = $context;
     }
-
-    /**
-     * @var string A text with class name of CSS style to message
-     */
-    protected $className;
 
     /**
      * @return string A text with class name of CSS style to message
@@ -60,11 +104,6 @@ class Message
     }
 
     /**
-     * @var string A text with class name of CSS style to icon
-     */
-    protected $icon;
-
-    /**
      * @return string One text with class name of CSS style to icon
      */
     public function getIcon(): string
@@ -79,11 +118,6 @@ class Message
     {
         $this->icon = $icon;
     }
-
-    /**
-     * @var string A text with title of message
-     */
-    protected $title;
 
     /**
      * @return string A text with title of message
@@ -102,11 +136,6 @@ class Message
     }
 
     /**
-     * @var string A text with Content of message
-     */
-    protected $content;
-
-    /**
      * @return string A text with Content of message
      */
     public function getContent(): string
@@ -121,11 +150,6 @@ class Message
     {
         $this->content = $content;
     }
-
-    /**
-     * @var int A number with Timer to redirect message
-     */
-    protected $timer;
 
     /**
      * @return int A number with Timer to redirect message
@@ -144,11 +168,6 @@ class Message
     }
 
     /**
-     * @var string An URL with path to redirect
-     */
-    protected $link;
-
-    /**
      * @return string An URL with path to redirect
      */
     function getLink(): string
@@ -163,11 +182,6 @@ class Message
     {
         $this->link = $link;
     }
-
-    /**
-     * @var bool A boolean value with state of message
-     */
-    protected $enabled;
 
     /**
      * @return bool A boolean value with state of message
@@ -186,17 +200,33 @@ class Message
     }
 
     /**
-     * Initialize sn instance od Message
+     * Generate the message to Exception Catched
+     * @param Exception $Error An çinstance of Exception
      */
-    public function __construct()
+    public function ExceptionCatched(Exception $Error): void
     {
-        $this->setClassName("ui message");
-        $this->setIcon("chat icon");
-        $this->setTitle("Message");
-        $this->setContent("Nothing for display here.");
-        $this->setLink("");
-        $this->setTimer(0);
-        $this->setEnabled(true);
+        $this->setClassName("ui red icon message");
+        $this->setIcon("ui circle remove icon");
+        $this->setTitle("Erro {$Error->getCode()} Capturado");
+        $this->setContent($Error->getMessage());
+    }
+
+    /**
+     * Return a array with data to instance of JSON object message
+     * @return array A array with data of object Message
+     */
+    public function GetInstanceArray(): array
+    {
+        return [
+            "context" => $this->getContent(),
+            "class" => $this->getClassName(),
+            "icon" => $this->getIcon(),
+            "title" => $this->getTitle(),
+            "content" => $this->getContent(),
+            "timer" => $this->getTimer(),
+            "link" => $this->getLink(),
+            "enabled" => $this->getEnabled()
+        ];
     }
 
     /**
@@ -305,6 +335,17 @@ class Message
     }
 
     /**
+     * Generate the message to No Results
+     */
+    public function NoResults(): void
+    {
+        $this->setClassName("ui grey icon message");
+        $this->setIcon("ui find icon");
+        $this->setTitle("Sem Resultados");
+        $this->setContent("Nenhum resultado para esta transação");
+    }
+
+    /**
      * Generate the message to Indisponible Function
      */
     public function IndisponibleFunction(): void
@@ -358,46 +399,5 @@ class Message
         $this->setIcon("ui chat icon");
         $this->setTitle($Status->getCode());
         $this->setContent($Status->Message->getContent());
-    }
-
-    /**
-     * Generate the message to Exception Catched
-     * @param Exception $Error An çinstance of Exception
-     */
-    public function ExceptionCatched(Exception $Error): void
-    {
-        $this->setClassName("ui red icon message");
-        $this->setIcon("ui circle remove icon");
-        $this->setTitle("Erro {$Error->getCode()} Capturado");
-        $this->setContent($Error->getMessage());
-    }
-
-    /**
-     * Generate the message to No Results
-     */
-    public function NoResults(): void
-    {
-        $this->setClassName("ui grey icon message");
-        $this->setIcon("ui find icon");
-        $this->setTitle("Sem Resultados");
-        $this->setContent("Nenhum resultado para esta transação");
-    }
-
-    /**
-     * Return a array with data to instance of JSON object message
-     * @return array A array with data of object Message
-     */
-    public function GetInstanceArray(): array
-    {
-        return [
-            "context" => $this->getContent(),
-            "class" => $this->getClassName(),
-            "icon" => $this->getIcon(),
-            "title" => $this->getTitle(),
-            "content" => $this->getContent(),
-            "timer" => $this->getTimer(),
-            "link" => $this->getLink(),
-            "enabled" => $this->getEnabled()
-        ];
     }
 }

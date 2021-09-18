@@ -18,6 +18,11 @@ class User extends Person
     public $Contacts;
 
     /**
+     * @var bool A boolean value for status of User like activated
+     */
+    private $activated;
+
+    /**
      * @param Contact $Contact An isntance of Contact
      * @return void
      */
@@ -25,11 +30,6 @@ class User extends Person
     {
         $this->Contacts = $Contact;
     }
-
-    /**
-     * @var bool A boolean value for status of User like activated
-     */
-    private $activated;
 
     /**
      * @return bool A boolean value for status of User like activated

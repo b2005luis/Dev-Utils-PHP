@@ -7,11 +7,36 @@
  */
 class Packaging
 {
-
     /**
      * @var int A number with the data of the instance of Pacjaging
      */
     private $id;
+
+    /**
+     * @var string A text with the packaging code
+     */
+    private $code;
+
+    /**
+     *
+     * @var string A text with the description of Packaging
+     */
+    private $description;
+
+    /**
+     * @var int A number with the quantity in packaging
+     */
+    private $quantity;
+
+    /**
+     * @var float A number with the weight of packaging
+     */
+    private $weight;
+
+    /**
+     * @var Category An instance of Category to represents unit measure of packaging
+     */
+    private $UnitMeasure;
 
     /**
      * @return int A number with the data of the instance of Pacjaging
@@ -31,11 +56,6 @@ class Packaging
     }
 
     /**
-     * @var string A text with the packaging code
-     */
-    private $code;
-
-    /**
      * @return string
      */
     public function getCode(): string
@@ -51,12 +71,6 @@ class Packaging
     {
         $this->code = strtoupper(trim($code));
     }
-
-    /**
-     *
-     * @var string A text with the description of Packaging
-     */
-    private $description;
 
     /**
      * @return string A text with the description of Packaging
@@ -76,11 +90,6 @@ class Packaging
     }
 
     /**
-     * @var int A number with the quantity in packaging
-     */
-    private $quantity;
-
-    /**
      * @return int A number with the quantity in packaging
      */
     public function getQuantity(): int
@@ -96,11 +105,6 @@ class Packaging
     {
         $this->quantity = $quantity;
     }
-
-    /**
-     * @var float A number with the weight of packaging
-     */
-    private $weight;
 
     /**
      * @return float A number with the weight of packaging
@@ -124,11 +128,6 @@ class Packaging
 
         $this->weight = $weight;
     }
-
-    /**
-     * @var Category An instance of Category to represents unit measure of packaging
-     */
-    private $UnitMeasure;
 
     /**
      * @return Packaging An instance of Packaging

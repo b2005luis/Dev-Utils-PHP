@@ -6,23 +6,12 @@
  * @requires AbstractWebRequest
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-class YahooQuotes extends AbstractWebRequest {
-
+class YahooQuotes extends AbstractWebRequest
+{
     /**
      * @var string A text with the URL with end-point address
      */
-    private $END_POINT;
-
-    /**
-     * mount a end-point with data to find quotes
-     * @return void
-     */
-    public function Refresh_END_POINT(): void {
-        $Ticker = $this->getTicker();
-        $StartDate = $this->getStartDate()->getTimestamp();
-        $EndDate = $this->getEndDate()->getTimestamp();
-        $this->END_POINT = "https://finance.yahoo.com/quote/$Ticker.SA/history?period1=$StartDate&period2=$EndDate&interval=1d&filter=history&frequency=1d";
-    }
+    private $endpoint;
 
     /**
      * @var resource A resource with the cURL channel
@@ -35,42 +24,9 @@ class YahooQuotes extends AbstractWebRequest {
     private $startDate;
 
     /**
-     * @return \DateTime An instance of DateTime to represents the start date
-     */
-    public function getStartDate(): DateTime {
-        return $this->startDate;
-    }
-
-    /**
-     * @param string $startDate A text with the formated start date
-     * @return void
-     */
-    public function setStartDate(string $startDate): void {
-        $startDate = str_repeat("/", "-", $startDate);
-        $timestamp = strtotime($startDate);
-        $this->startDate->setTimestamp($timestamp);
-    }
-
-    /**
      * @var DateTime An instance of DateTime to represents the end date
      */
     private $endDate;
-
-    /**
-     * @return \DateTime An instance of DateTime to represents the end date
-     */
-    public function getEndDate(): DateTime {
-        return $this->endDate;
-    }
-
-    /**
-     * @param string $endDate A text with the formated end date
-     */
-    public function setEndDate(string $endDate): void {
-        $endDate = str_repeat("/", "-", $endDate);
-        $timestamp = strtotime($endDate);
-        $this->endDate->setTimestamp($timestamp);
-    }
 
     /**
      * @var string A text with the code of the asset to find quotes
@@ -78,34 +34,87 @@ class YahooQuotes extends AbstractWebRequest {
     private $ticker;
 
     /**
+     * @var array An array with collection of data quotes
+     */
+    private $Result;
+
+    /**
+     * mount a end-point with data to find quotes
+     * @return void
+     */
+    public function refreshEndPoint(): void
+    {
+        $Ticker = $this->getTicker();
+        $StartDate = $this->getStartDate()->getTimestamp();
+        $EndDate = $this->getEndDate()->getTimestamp();
+        $this->endpoint = "https://finance.yahoo.com/quote/$Ticker.SA/history?period1=$StartDate&period2=$EndDate&interval=1d&filter=history&frequency=1d";
+    }
+
+    /**
+     * @return DateTime An instance of DateTime to represents the start date
+     */
+    public function getStartDate(): DateTime
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param string $startDate A text with the formated start date
+     * @return void
+     */
+    public function setStartDate(string $startDate): void
+    {
+        $startDate = str_repeat("/", "-", $startDate);
+        $timestamp = strtotime($startDate);
+        $this->startDate->setTimestamp($timestamp);
+    }
+
+    /**
+     * @return DateTime An instance of DateTime to represents the end date
+     */
+    public function getEndDate(): DateTime
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * @param string $endDate A text with the formated end date
+     */
+    public function setEndDate(string $endDate): void
+    {
+        $endDate = str_repeat("/", "-", $endDate);
+        $timestamp = strtotime($endDate);
+        $this->endDate->setTimestamp($timestamp);
+    }
+
+    /**
      * @return string A text with the code of the asset to find quotes
      */
-    public function getTicker(): string {
+    public function getTicker(): string
+    {
         return $this->ticker;
     }
 
     /**
      * @param string $ticker A text with the code of the asset to find quotes
      */
-    public function setTicker(string $ticker): void {
+    public function setTicker(string $ticker): void
+    {
         $this->ticker = strtoupper(trim($ticker));
     }
 
     /**
-     * @var array An array with collection of data quotes
-     */
-    private $Result;
-
-    /**
      * Initialize an instance of YahooQuotes
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->startDate = new DateTime();
         $this->endDate = new DateTime();
     }
 
-    protected function DoGet() {
+    protected function DoGet(): void
+    {
         switch ($this->Token) {
             default:
                 $this->InvadRequest();
@@ -113,7 +122,8 @@ class YahooQuotes extends AbstractWebRequest {
         }
     }
 
-    protected function DoPost() {
+    protected function DoPost(): void
+    {
         switch ($this->Token) {
             case "E7254AD7-DE861254-A90D17BA-B271795B":
                 $this->GetQuotesToday();
@@ -136,16 +146,18 @@ class YahooQuotes extends AbstractWebRequest {
     /**
      * Define options to execution in the channel
      */
-    private function AutoSetupOptions() {
+    private function AutoSetupOptions()
+    {
         // Define return type to response, true return response, if false it print the response
         curl_setopt($this->Channel, CURLOPT_RETURNTRANSFER, true);
         // Set end-point to channel
-        curl_setopt($this->Channel, CURLOPT_URL, $this->END_POINT);
+        curl_setopt($this->Channel, CURLOPT_URL, $this->endpoint);
     }
 
-    private function OpenChannelCURL() {
+    private function OpenChannelCURL()
+    {
         // Reset end-point to request
-        $this->Refresh_END_POINT();
+        $this->refreshEndPoint();
 
         //Initialize the resource cURL channel
         $this->Channel = curl_init();
@@ -163,7 +175,8 @@ class YahooQuotes extends AbstractWebRequest {
         }
     }
 
-    public function ExecuteRequest() {
+    public function ExecuteRequest()
+    {
         if ($this->OpenChannelCURL()) {
             // Set success result
             $this->Result = curl_exec($this->Channel);
@@ -176,7 +189,8 @@ class YahooQuotes extends AbstractWebRequest {
         }
     }
 
-    public function CloseChannelCURL() {
+    public function CloseChannelCURL()
+    {
         if (is_resource($this->Channel)) {
             // close channel
             curl_close($this->Channel);
@@ -186,7 +200,8 @@ class YahooQuotes extends AbstractWebRequest {
     /**
      * Execute a request to obtains quotes of asset in the date interval
      */
-    private function GetQuotes() {
+    private function GetQuotes()
+    {
         // Execute the prepared request
         $this->ExecuteRequest();
 
@@ -239,7 +254,8 @@ class YahooQuotes extends AbstractWebRequest {
         $this->ResponseJSON($this->Result, $this->Status);
     }
 
-    private function GetQuotesToday() {
+    private function GetQuotesToday()
+    {
         // Define the timezone from brazil
         date_default_timezone_set("America/Sao_Paulo");
         // Get the system date

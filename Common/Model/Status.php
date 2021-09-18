@@ -13,26 +13,9 @@ require_once __DIR__ . "/../../Messages/Model/Message.php";
 class Status
 {
     /**
-     * @var string A text with name for scope of the Status
+     * @var Message A instance of Message
      */
-    private $scope;
-
-    /**
-     * @return A text with name for scope of the Status
-     */
-    public function getScope(): string
-    {
-        return $this->scope;
-    }
-
-    /**
-     * @param string $scope A text with name for scope of the Status
-     * @return void
-     */
-    public function setScope(string $scope): void
-    {
-        $this->scope = $scope;
-    }
+    public $Message;
 
     /**
      * @var string A text with the code of state object
@@ -40,27 +23,9 @@ class Status
     protected $code;
 
     /**
-     * @return string A text with the code of state object
+     * @var string A text with name for scope of the Status
      */
-    public function getCode(): string
-    {
-        return $this->code;
-    }
-
-    /**
-     * @param string $code A text with the code of state object
-     * @return void
-     */
-    public function setCode(string $code): void
-    {
-        $this->code = $code;
-        $this->Message->DefineMessage($this);
-    }
-
-    /**
-     * @var Message A instance of Message
-     */
-    public $Message;
+    private $scope;
 
     /**
      * @return Status An instance of Status
@@ -85,13 +50,48 @@ class Status
         $Message_Type = 3;
 
         $Message = join("   ", [
-            $Date->format("d/m/Y H:i:s"),
-            $this->getScope(),
-            $this->getCode(),
-            $this->Message->getContent()
-        ]) . PHP_EOL;
+                $Date->format("d/m/Y H:i:s"),
+                $this->getScope(),
+                $this->getCode(),
+                $this->Message->getContent()
+            ]) . PHP_EOL;
 
         error_log($Message, $Message_Type, $Destination);
+    }
+
+    /**
+     * @return A text with name for scope of the Status
+     */
+    public function getScope(): string
+    {
+        return $this->scope;
+    }
+
+    /**
+     * @param string $scope A text with name for scope of the Status
+     * @return void
+     */
+    public function setScope(string $scope): void
+    {
+        $this->scope = $scope;
+    }
+
+    /**
+     * @return string A text with the code of state object
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code A text with the code of state object
+     * @return void
+     */
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+        $this->Message->DefineMessage($this);
     }
 
     /**

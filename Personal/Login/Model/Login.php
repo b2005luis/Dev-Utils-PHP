@@ -12,6 +12,16 @@ class Login
     protected $username;
 
     /**
+     * @var string A text with password for auth User
+     */
+    protected $password;
+
+    /**
+     * @var bool A boolean value to kock state of User
+     */
+    protected $blocked;
+
+    /**
      * @return string A text with username for User
      */
     public function getUsername(): string
@@ -29,11 +39,6 @@ class Login
     }
 
     /**
-     * @var string A text with password for auth User
-     */
-    protected $password;
-
-    /**
      * @return string A text with password for auth User
      */
     public function getPassword(): string
@@ -49,11 +54,6 @@ class Login
     {
         $this->password = hash("SHA256", $password);
     }
-
-    /**
-     * @var bool A boolean value to kock state of User
-     */
-    protected $blocked;
 
     /**
      * @return bool A boolean value to kock state of User

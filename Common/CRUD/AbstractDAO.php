@@ -6,7 +6,12 @@
  * @requires Status
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
-abstract class AbstractDAO {
+abstract class AbstractDAO
+{
+    /**
+     * @var Status An instance of Status
+     */
+    public $Status;
 
     /**
      * @var PDOStatement An instance of PDOStatement
@@ -24,15 +29,10 @@ abstract class AbstractDAO {
     protected $Result;
 
     /**
-     * @var Status An instance of Status
-     */
-    public $Status;
-
-    /**
      * Initialize an instance of iCRUD
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->Status = new Status();
     }
-
 }

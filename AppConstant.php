@@ -66,7 +66,8 @@ define("DocRootInvestment", (DocRootPHP . "/Financial/Investment"));
 /**
  * Test structure of the objects
  */
-function TestingStructures($object = array()) {
+function TestingStructures($object = array())
+{
     print("<pre>");
     print_r($object);
     print("</pre>");

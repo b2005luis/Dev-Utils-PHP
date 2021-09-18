@@ -14,6 +14,31 @@ class Product
     private $id;
 
     /**
+     * @var string A text with the base code of Product
+     */
+    private $baseCode;
+
+    /**
+     * @var string A text with the Product code
+     */
+    private $code;
+
+    /**
+     * @var string A text with the description Product
+     */
+    private $description;
+
+    /**
+     * @var Packaging An instance of Packaging
+     */
+    public $Packaging;
+
+    /**
+     * @var Category An instance of Category
+     */
+    public $Type;
+
+    /**
      * @return int A number with the identifier of Product
      */
     public function getId(): int
@@ -29,11 +54,6 @@ class Product
     {
         $this->id = $id;
     }
-
-    /**
-     * @var string A text with the base code of Product
-     */
-    private $baseCode;
 
     /**
      * @return string A text with the base code of Product
@@ -53,11 +73,6 @@ class Product
     }
 
     /**
-     * @var string A text with the Product code
-     */
-    private $code;
-
-    /**
      * @return string A text with the Product code
      */
     public function getCode(): string
@@ -75,11 +90,6 @@ class Product
     }
 
     /**
-     * @var string A text with the description Product
-     */
-    private $description;
-
-    /**
      * @return string A text with the description Product
      */
     public function getDescription(): string
@@ -95,16 +105,6 @@ class Product
     {
         $this->description = ucwords(trim($description));
     }
-
-    /**
-     * @var Packaging An instance of Packaging
-     */
-    public $Packaging;
-
-    /**
-     * @var Category An instance of Category
-     */
-    public $Type;
 
     /**
      * @return Product An isntance of Product

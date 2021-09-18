@@ -6,7 +6,7 @@
  */
 class DatabaseMessage
 {
-   /**
+    /**
      * Execute the featured of DatabaseMessage context
      * @param Status $Status An instance of Status
      * @param Message $Message An instance of Message

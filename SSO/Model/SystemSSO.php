@@ -13,6 +13,11 @@ class SystemSSO
     protected $key;
 
     /**
+     * @var Status An instance of Status
+     */
+    public $Status;
+
+    /**
      * @return string A text or number to represent key of session
      */
     public function getKey(): string
@@ -28,11 +33,6 @@ class SystemSSO
     {
         $this->key = $key;
     }
-
-    /**
-     * @var Status An instance of Status
-     */
-    public $Status;
 
     /**
      * Initializa an instance of SystemSSO
