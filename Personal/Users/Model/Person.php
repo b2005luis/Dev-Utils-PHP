@@ -69,7 +69,7 @@ class Person
      */
     public function setFirstname(string $firstname): void
     {
-        $this->firstname = ucwords(strtolower(trim($firstname)));
+        $this->firstname = ucwords(trim($firstname));
         $this->setFullname();
     }
 
@@ -87,7 +87,7 @@ class Person
      */
     public function setLastname(string $lastname): void
     {
-        $this->lastname = ucwords(strtolower(trim($lastname)));
+        $this->lastname = ucwords(trim($lastname));
         $this->setFullname();
     }
 

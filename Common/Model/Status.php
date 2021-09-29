@@ -28,7 +28,7 @@ class Status
     private $scope;
 
     /**
-     * @return Status An instance of Status
+     * Initialize an instance of Status
      */
     public function __construct()
     {
@@ -60,7 +60,7 @@ class Status
     }
 
     /**
-     * @return A text with name for scope of the Status
+     * @return string A text with name for scope of the Status
      */
     public function getScope(): string
     {

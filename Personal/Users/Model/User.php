@@ -3,6 +3,7 @@
 /**
  * Implements the abstraction of a User
  * @uses Person
+ * @uses Login
  * @author Luis Alberto Batista Pedroso
  */
 class User extends Person

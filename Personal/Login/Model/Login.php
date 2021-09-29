@@ -52,7 +52,7 @@ class Login
      */
     public function setPassword(string $password): void
     {
-        $this->password = hash("SHA256", $password);
+        $this->password = hash("SHA256", base64_encode($password));
     }
 
     /**
