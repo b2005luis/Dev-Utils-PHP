@@ -20,7 +20,7 @@ class Contact
     /**
      * @var string A text with contact suplied
      */
-    protected $contact;
+    protected $content;
 
     /**
      * @var string An explanation of contact representation
@@ -47,18 +47,18 @@ class Contact
     /**
      * @return string A text with contact suplied
      */
-    public function getContact(): string
+    public function getContent(): string
     {
-        return $this->contact;
+        return $this->content;
     }
 
     /**
-     * @param string $contact A text with contact suplied
+     * @param string $content A text with contact suplied
      * @return void
      */
-    public function setContact(string $contact): void
+    public function setContent(string $content): void
     {
-        $this->contact = $contact;
+        $this->content = $content;
     }
 
     /**
@@ -83,19 +83,5 @@ class Contact
     public function __construct()
     {
         $this->ContactType = new Category();
-    }
-
-    /**
-     * Generate an array with data of Contact
-     * @return array An array with data of Contact
-     */
-    public function GetInstanceArray(): array
-    {
-        return [
-            "id" => $this->getId(),
-            "contact" => $this->getContact(),
-            "ContactType" => $this->ContactType->GetInstanceArray(),
-            "description" => $this->getDescription()
-        ];
     }
 }

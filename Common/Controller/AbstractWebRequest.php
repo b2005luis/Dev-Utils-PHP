@@ -3,7 +3,7 @@
 /**
  * Import files
  */
-require_once __DIR__ . "/../Model/Status.php";
+require_once __DIR__ . "/../Domain/Status.php";
 
 /**
  * Implements an abstraction for treatment of web requests

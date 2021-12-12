@@ -1,6 +1,6 @@
 <?php
 
-require_once "../../../Multilang/Messages/Model/Message.php";
+require_once "../../../Multilang/Messages/Domain/Message.php";
 require_once "./Status.php";
 
 $Status = new Status();

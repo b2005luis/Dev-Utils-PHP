@@ -2,7 +2,7 @@
 
 /**
  * Sample to create features to operate database
- * @requires AbstractDAO
+ * @uses AbstractDAO
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
  */
 class SampleDAO extends AbstractDAO

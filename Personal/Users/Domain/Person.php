@@ -113,8 +113,8 @@ class Person
      */
     public function setBirthday(string $data): void
     {
-        $data = str_repeat("/", "-", $data);
-        $this->Birthday->setTimestamp(strtotime($data));
+        $data = str_replace("/", "-", $data);
+        $this->birthday->setTimestamp(strtotime($data));
     }
 
     /**
@@ -124,21 +124,5 @@ class Person
     {
         $this->Birthday = new DateTime();
         $this->Gender = new Category();
-    }
-
-    /**
-     * Generate and return a array with data of instance object
-     * @return array A array with data of instance
-     */
-    public function GetInstanceArray(): array
-    {
-        return [
-            "id" => $this->getId(),
-            "firstname" => $this->getFirstname(),
-            "lastname" => $this->getLastname(),
-            "fullname" => $this->getFullname(),
-            "Birthday" => $this->Birthday->getTimestamp(),
-            "Gender" => $this->Gender->GetInstanceArray()
-        ];
     }
 }
