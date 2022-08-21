@@ -21,7 +21,7 @@ abstract class AbstractDAO
     /**
      * @var string A text with the SQL statement for execution
      */
-    protected $QueryString;
+    protected $queryString;
 
     /**
      * @var array A array with the feched data of queries

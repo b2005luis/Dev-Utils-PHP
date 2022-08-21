@@ -22,19 +22,6 @@ class Event
     private $description;
 
     /**
-     * Return a array with data of instance of Event
-     * @return array A array eith data of instance of object
-     */
-    public function GetInstanceArray(): array
-    {
-        return [
-            "id" => $this->getId(),
-            "code" => $this->getCode(),
-            "description" => $this->getDescription()
-        ];
-    }
-
-    /**
      * @return int A number of identifier to event
      */
     public function getId(): int

@@ -203,7 +203,7 @@ class Message
      * Generate the message to Exception Catched
      * @param Exception $Error An çinstance of Exception
      */
-    public function ExceptionCatched(Exception $Error): void
+    public function exceptionCatched(Exception $Error): void
     {
         $this->setClassName("ui red icon message");
         $this->setIcon("ui circle remove icon");
@@ -215,7 +215,7 @@ class Message
      * Generate a message based in a message context
      * @param Status $Status Am instance of Status
      */
-    public function DefineMessage(Status $Status): void
+    public function defineMessage(Status $Status): void
     {
         switch ($this->getContext()) {
             case "Factory":

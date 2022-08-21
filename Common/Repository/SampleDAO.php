@@ -16,7 +16,7 @@ class SampleDAO extends AbstractDAO
         $ListOfRecords = [];
 
         // Validate connection
-        $Connect->CheckConnection();
+        $Connect->checkConnection();
 
         if ($Connect->Status->getCode() == "CONN") {
             try {
@@ -49,12 +49,12 @@ class SampleDAO extends AbstractDAO
                         // Define status
                         $this->Status->setContext("Record");
                         $this->Status->setCode("OK");
-                        $this->Status->Message->DefineMessage($this->Status);
+                        $this->Status->Message->defineMessage($this->Status);
                     } else {
                         // Define status
                         $this->Status->setContext("Record");
                         $this->Status->setCode("SR");
-                        $this->Status->Message->DefineMessage($this->Status);
+                        $this->Status->Message->defineMessage($this->Status);
                     }
                 } else {
                     // Define status
@@ -84,7 +84,7 @@ class SampleDAO extends AbstractDAO
     public function CreateRecord($Record, DatabaseConnect $Connect)
     {
         // Validate connection
-        $Connect->CheckConnection();
+        $Connect->checkConnection();
 
         if ($Connect->Status->getCode() == "CONN") {
             try {
@@ -113,18 +113,18 @@ class SampleDAO extends AbstractDAO
                     // Define status
                     $this->Status->setCode($Connect->Connection->errorCode());
                     $this->Status->Message->setContent($Connect->Connection->errorInfo());
-                    $this->Status->GenerateLogFile();
+                    $this->Status->generateLogFile();
                 }
             } catch (PDOException $Error) {
                 // Define status
                 $this->Status->setCode($Error->getCode());
                 $this->Status->Message->setContent($Error->getMessage());
-                $this->Status->GenerateLogFile();
+                $this->Status->generateLogFile();
             }
         } else {
             // Define status
             $this->Status = $Connect->Status;
-            $this->Status->GenerateLogFile();
+            $this->Status->generateLogFile();
         }
     }
 
@@ -136,7 +136,7 @@ class SampleDAO extends AbstractDAO
     public function UpdateRecord($Record, DatabaseConnect $Connect)
     {
         // Validate connection
-        $Connect->CheckConnection();
+        $Connect->checkConnection();
 
         if ($Connect->Status->getCode() == "CONN") {
             try {
@@ -161,18 +161,18 @@ class SampleDAO extends AbstractDAO
                     // Define status
                     $this->Status->setCode($Connect->Connection->errorCode());
                     $this->Status->Message->setContent($Connect->Connection->errorInfo());
-                    $this->Status->GenerateLogFile();
+                    $this->Status->generateLogFile();
                 }
             } catch (PDOException $Error) {
                 // Define status
                 $this->Status->setCode($Error->getCode());
                 $this->Status->Message->setContent($Error->getMessage());
-                $this->Status->GenerateLogFile();
+                $this->Status->generateLogFile();
             }
         } else {
             // Define status
             $this->Status = $Connect->Status;
-            $this->Status->GenerateLogFile();
+            $this->Status->generateLogFile();
         }
     }
 
@@ -184,7 +184,7 @@ class SampleDAO extends AbstractDAO
     public function DeleteRecord($Record, DatabaseConnect $Connect)
     {
         // Validate connection
-        $Connect->CheckConnection();
+        $Connect->checkConnection();
 
         if ($Connect->Status->getCode() == "CONN") {
             try {
@@ -204,18 +204,18 @@ class SampleDAO extends AbstractDAO
                     // Define status
                     $this->Status->setCode($Connect->Connection->errorCode());
                     $this->Status->Message->setContent($Connect->Connection->errorInfo());
-                    $this->Status->GenerateLogFile();
+                    $this->Status->generateLogFile();
                 }
             } catch (PDOException $Error) {
                 // Define status
                 $this->Status->setCode($Error->getCode());
                 $this->Status->Message->setContent($Error->getMessage());
-                $this->Status->GenerateLogFile();
+                $this->Status->generateLogFile();
             }
         } else {
             // Define status
             $this->Status = $Connect->Status;
-            $this->Status->GenerateLogFile();
+            $this->Status->generateLogFile();
         }
     }
 }

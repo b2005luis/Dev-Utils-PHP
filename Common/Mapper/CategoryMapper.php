@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Responsible by mapping the instance Gender to Array, Csv, Json and others
+ * Responsible by mapping the instance Categories to Array, Csv, Json and others
+ * ]@uses Category
  * @author Luis Alberto Batista Pedroso
  */
 abstract class CategoryMapper

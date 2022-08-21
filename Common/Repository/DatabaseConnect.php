@@ -2,6 +2,7 @@
 
 /**
  * Implements one bridge of connection between PHP and SGDB's
+ * @uses DatabaseDrivers
  * @uses PDO
  * @uses PDOException
  * @uses Status
@@ -22,7 +23,7 @@ class DatabaseConnect
     /**
      * @var string A text with one string connection with data source name
      */
-    private $DSN;
+    private $dataSourceName;
 
     /**
      * @var string A text with name of SGBD driver
@@ -61,10 +62,10 @@ class DatabaseConnect
     public function __construct($auto_connect = false)
     {
         $this->Status = new Status();
-        $this->Status->setContext("Database");
+        $this->Status->setScope("Database");
 
         if ($auto_connect) {
-            $this->AutoConnect();
+            $this->autoConnect();
         }
     }
 
@@ -72,17 +73,17 @@ class DatabaseConnect
      * Get defaults settings of connection and execute the connection
      * @return void
      */
-    function AutoConnect(): void
+    function autoConnect(): void
     {
-        $this->DefaultCredencials();
-        $this->OpenConnection();
+        $this->defaultCredencials();
+        $this->openConnection();
     }
 
     /**
      * Define default data of connection
      * @return void
      */
-    public function DefaultCredencials(): void
+    public function defaultCredencials(): void
     {
         $this->driver = DatabaseDrivers::DRV_MYSQL;
         $this->hostname = "localhost";
@@ -96,13 +97,13 @@ class DatabaseConnect
      * Open and define one connection based on DSN (data source name)
      * @return void
      */
-    public function OpenConnection(): void
+    public function openConnection(): void
     {
         try {
             // Switch DSN to equivalebt suplied driver
-            $this->SwitchDSN();
+            $this->switchDataSource();
             // Initialize a new connection
-            $this->Connection = new PDO($this->DSN, $this->username, $this->password) or die(NULL);
+            $this->Connection = new PDO($this->dataSourceName, $this->username, $this->password) or die(NULL);
             // If is a object, define traitment errors
             if ($this->Connection instanceof PDO) {
                 // Define property errors as excetions
@@ -114,12 +115,12 @@ class DatabaseConnect
                 $this->Status->setCode("NCONN");
             }
             // Define state of object
-            $this->Status->Message->DefineMessage($this->Status);
+            $this->Status->Message->defineMessage($this->Status);
         } catch (PDOException $Error) {
             // Define state of object
             $this->Status->setCode($Error->getCode());
-            $this->Status->Message->ExceptionCatched($Error);
-            $this->Status->GenerateLogFile();
+            $this->Status->Message->exceptionCatched($Error);
+            $this->Status->generateLogFile();
         }
     }
 
@@ -127,43 +128,43 @@ class DatabaseConnect
      * Choose driver and define the string connection
      * @return void
      */
-    public function SwitchDSN(): void
+    public function switchDataSource(): void
     {
         switch ($this->driver) {
             case DatabaseDrivers::DRV_CUBRID:
-                $this->DSN = "$this->driver:dbname=$this->database;host=$this->hostname;port=$this->port";
+                $this->dataSourceName = "$this->driver:dbname=$this->database;host=$this->hostname;port=$this->port";
                 break;
 
             case DatabaseDrivers::DRV_SQLSERVER:
-                $this->DSN = "$this->driver:Server=$this->hostname;Database=$this->database";
+                $this->dataSourceName = "$this->driver:Server=$this->hostname;Database=$this->database";
                 break;
 
             case DatabaseDrivers::DRV_FIREBIRD:
-                $this->DSN = "$this->driver:dbname=$this->hostname";
+                $this->dataSourceName = "$this->driver:dbname=$this->hostname";
                 break;
 
             case DatabaseDrivers::DRV_MYSQL:
-                $this->DSN = "$this->driver:host=$this->hostname;dbname=$this->database";
+                $this->dataSourceName = "$this->driver:host=$this->hostname;dbname=$this->database";
                 break;
 
             case DatabaseDrivers::DRV_ORACLE_8:
-                $this->DSN = "$this->driver:dbname=$this->hostname/$this->database;charset=utf8";
+                $this->dataSourceName = "$this->driver:dbname=$this->hostname/$this->database;charset=utf8";
                 break;
 
             case DatabaseDrivers::DRV_ODBC:
-                $this->DSN = "$this->driver:Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=$this->hostname;Uid=$this->usuario";
+                $this->dataSourceName = "$this->driver:Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=$this->hostname;Uid=$this->usuario";
                 break;
 
             case DatabaseDrivers::DRV_POSTGREE;
-                $this->DSN = "$this->driver:host=$this->hostname;port=$this->port;dbname=$this->database;";
+                $this->dataSourceName = "$this->driver:host=$this->hostname;port=$this->port;dbname=$this->database;";
                 break;
 
             case DatabaseDrivers::DRV_SQLITE:
-                $this->DSN = "$this->driver:$this->hostname";
+                $this->dataSourceName = "$this->driver:$this->hostname";
                 break;
 
             default:
-                $this->DSN = NULL;
+                $this->dataSourceName = NULL;
                 break;
         }
     }
@@ -171,18 +172,18 @@ class DatabaseConnect
     /**
      * @return string A string connection with data source name
      */
-    public function getDSN(): string
+    public function getDataSourceName(): string
     {
-        return $this->DSN;
+        return $this->dataSourceName;
     }
 
     /**
-     * @param string $DSN A string connection with data source name
+     * @param string $dataSourceName A string connection with data source name
      * @return void
      */
-    public function setDSN(string $DSN): void
+    public function setDataSourceName(string $dataSourceName): void
     {
-        $this->DSN = $DSN;
+        $this->dataSourceName = $dataSourceName;
     }
 
     /**
@@ -290,7 +291,7 @@ class DatabaseConnect
      * Test of connection state
      * @return bool A boolean value to represents the state connection
      */
-    public function CheckConnection(): bool
+    public function checkConnection(): bool
     {
         if ($this->Connection && $this->Status->getCode() == "CONN") {
             if ($this->Connection->query("SELECT 1")) {
@@ -312,7 +313,7 @@ class DatabaseConnect
     /**
      * Close  an opened connection
      */
-    public function CloseConnection(): void
+    public function closeConnection(): void
     {
         try {
             // Set null to connection object
@@ -322,8 +323,8 @@ class DatabaseConnect
         } catch (PDOException $Error) {
             // Define state of object
             $this->Status->setCode($Error->getCode());
-            $this->Status->Message->ExceptionCatched($Error);
-            $this->Status->GenerateLogFile();
+            $this->Status->Message->exceptionCatched($Error);
+            $this->Status->generateLogFile();
         }
     }
 }

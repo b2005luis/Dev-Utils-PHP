@@ -3,7 +3,6 @@
 /**
  * Responsible by mapping the instance User to Array, Csv, Json and others
  * @uses User
- * @uses CategoryMapper
  * @author Luis Alberto Batista Pedroso
  */
 abstract class UserMapper
@@ -33,7 +32,7 @@ abstract class UserMapper
      * @param array $listUsers An array with all datas of insatances of User in the list ou array
      * @return string A text with all datas of insatances of User in the list ou array
      */
-    public static function listToJson(array $listUsers): string
+    public static function listObjectsToJson(array $listUsers): string
     {
         $listJsons = [];
         foreach ($listUsers as $user) {
@@ -44,20 +43,16 @@ abstract class UserMapper
     }
 
     /**
-     * @param array $rowSet An array with data to convert to instance of User
-     * @return User An instance of User
+     * @param array $listUsers An array with all datas of insatances of User in the list ou array
+     * @return array An array with all datas of insatances of User in the list or array
      */
-    public static function rowSetToObject(array $rowSet): User
+    public static function listObjectsToArray(array $listUsers): array
     {
-        $user = new User();
-        $user->setId($rowSet["Person_Id"]);
-        $user->setFirstname($rowSet["Person_Firstname"]);
-        $user->setLastname($rowSet["Person_Lastname"]);
-        $user->setBirthday($rowSet["Person_Birthday"]);
-        $user->Gender->setId($rowSet["Gender_Id"]);
-        $user->Gender->setCode($rowSet["Gender_Code"]);
-        $user->Gender->setDescription($rowSet["Gender_Description"]);
+        $listArray = [];
+        foreach ($listUsers as $user) {
+            $listArray[] = self::objectToArray($user);
+        }
 
-        return $user;
+        return $listArray;
     }
 }

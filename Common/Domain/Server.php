@@ -61,23 +61,6 @@ class Server
     }
 
     /**
-     * Return a array with the data of instabnce Server
-     * @return array A array with the data of instabnce Server
-     */
-    public function GetInstanceArray(): array
-    {
-        return [
-            "id" => $this->getId(),
-            "description" => $this->getDescription(),
-            "hostname" => $this->getHostname(),
-            "username" => $this->getUsername(),
-            "password" => $this->getPassword(),
-            "database" => $this->getDatabase(),
-            "lastUpdate" => $this->LastUpdate->format("Y-m-d H:i:s")
-        ];
-    }
-
-    /**
      * @return int A number with the indentifier of Server.
      */
     public function getId(): int

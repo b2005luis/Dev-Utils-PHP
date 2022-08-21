@@ -1,11 +1,6 @@
 <?php
 
 /**
- * Import files
- */
-require_once __DIR__ . "/../../Messages/Domain/Message.php";
-
-/**
  * Represents one instance of State of one obeject
  * @uses Message
  * @author Luis Alberto Batista Pedroso <b2005.luis@gmail.com>
@@ -41,7 +36,7 @@ class Status
      * Generate a log file in the pre-defined location
      * @return void
      */
-    public function GenerateLogFile(): void
+    public function generateLogFile(): void
     {
         date_default_timezone_set("America/Sao_Paulo");
         $Date = new DateTime();
@@ -91,19 +86,6 @@ class Status
     public function setCode(string $code): void
     {
         $this->code = $code;
-        $this->Message->DefineMessage($this);
-    }
-
-    /**
-     * Return a array with data of instance Status
-     * @return array A array with data of instance Status
-     */
-    public function GetInstanceArray()
-    {
-        return [
-            "scope" => $this->getScope(),
-            "code" => $this->getCode(),
-            "Message" => $this->Message->GetInstanceArray()
-        ];
+        $this->Message->defineMessage($this);
     }
 }

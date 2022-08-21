@@ -79,17 +79,4 @@ class Login
     {
         $this->setBlocked(false);
     }
-
-    /**
-     * Generate and return a array with data of instance
-     * @return array A array with data of instance
-     */
-    public function GetInstanceArray(): array
-    {
-        return [
-            "username" => $this->getUsername(),
-            "password" => $this->getPassword(),
-            "blocked" => $this->isBlocked()
-        ];
-    }
 }
